@@ -1,3 +1,3 @@
 INSERT INTO role (type) VALUES (0), (1);
-insert INTO event (event_name, event_type) VALUES ('Football', 'SPORT');
-INSERT INTO employee (name, surname, login, password, role_id) VALUES ('Vlad', 'Naumkin', 'v.naumkin', '1234', 1), ('Ruslan', 'Kondratyev', 'r.kondratyev', '1234', 1), ('Dima', 'Anikin', 'd.anikin', '1234', 1), ('Alexander', 'Dolganov', 'a.dolganov', '1234', 1), ('Denis', 'Telyatnikov', 'd.telyatnikov', '1234', 2);
+insert INTO event (event_name, event_type) VALUES ('Корпаратив', 'CORPORATE'), ('Футбол', 'SPORT'), ('ЧГК', 'INTELLECTUAL'), ('Своя Игра', 'INTELLECTUAL'), ('Встреча', 'NOT_FORMAL');
+INSERT INTO employee (name, surname, login, password, role_id) VALUES ('Vlad', 'Naumkin', 'v.naumkin', '1234', 1), ('Ruslan', 'Kondratyev', 'r.kondratyev', '1234', 1), ('Dima', 'Anikin', 'd.anikin', '1234', 1), ('Alexander', 'Dolganov', 'a.dolganov', '1234', 1), ('Denis', 'Telyatnikov', 'd.telyatnikov', '1234', 2), ('test', 'test', 'test', 'test', 1);

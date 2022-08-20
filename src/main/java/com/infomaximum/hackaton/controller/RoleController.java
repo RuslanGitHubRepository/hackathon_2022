@@ -36,7 +36,7 @@ public class RoleController {
         }
         return new ResponseEntity<>(
                 roleMapper.roleToRoleDto(roleById),
-                HttpStatus.FOUND
+                HttpStatus.OK
         );
     }
 

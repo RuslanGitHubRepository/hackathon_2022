@@ -40,7 +40,7 @@ public class EventController {
         Event event = eventService.findEventById(eventsId);
         return new ResponseEntity<>(
                 eventMapper.eventToEventDto(event),
-                HttpStatus.FOUND);
+                HttpStatus.OK);
     }
 
     @GetMapping("/events/all")
@@ -48,7 +48,7 @@ public class EventController {
         ArrayList<Event> event = eventService.findAllEvent();
         return new ResponseEntity<>(
                 eventMapper.eventListToEventDtoList(event),
-                HttpStatus.FOUND);
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/events/{id}")

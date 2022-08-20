@@ -38,7 +38,7 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(
                 employeeMapper.employeeToEmployeeDto(employee),
-                HttpStatus.FOUND);
+                HttpStatus.OK);
     }
 
     @GetMapping("/employees/check")
@@ -49,6 +49,6 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(
                 employeeMapper.employeeToEmployeeDto(employee),
-                HttpStatus.FOUND);
+                HttpStatus.OK);
     }
 }
