@@ -5,6 +5,8 @@ import com.infomaximum.hackaton.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
@@ -20,6 +22,6 @@ public class EmployeeService {
 
     public boolean createUser(Employee employee) {
         Employee empl = employeeRepository.save(employee);
-        return empl.getId() == employee.getId();
+        return Objects.equals(empl.getId(), employee.getId());
     }
 }
