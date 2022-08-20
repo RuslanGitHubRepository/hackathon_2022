@@ -30,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{id}")
-    ResponseEntity<EmployeeDto> getEmployee(@PathVariable(name = "id") Long employeeId) {
+    ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable(name = "id") Long employeeId) {
         Employee employee = employeeService.findEmployeeById(employeeId);
         if (employee == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -40,8 +40,8 @@ public class EmployeeController {
                 HttpStatus.FOUND);
     }
 
-    @GetMapping("/employees/{login}/{password}")
-    ResponseEntity<EmployeeDto> getEmployee(@PathVariable(name = "login") String login, @PathVariable(name = "password") String password) {
+    @GetMapping("/employees/check")
+    ResponseEntity<EmployeeDto> getEmployee(@RequestParam String login, @RequestParam String password) {
         Employee employee = employeeService.findEmployeeByLoginAndPassword(login, password);
         if (employee == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     Employee findEmployeeById(Long id);
+
     Employee findEmployeeByLoginAndPassword(String login, String password);
-    @Modifying@Query("update Employee e set e.role = ?1 where e.id = ?2")
+
+    @Modifying
+    @Query(value = "UPDATE employee SET role_id = ?1 WHERE id = ?2", nativeQuery = true)
     void updateEmployeeRole(Role role, Long employeeId);
 }

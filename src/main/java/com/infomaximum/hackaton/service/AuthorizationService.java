@@ -4,6 +4,7 @@ import com.infomaximum.hackaton.model.employee.Employee;
 import com.infomaximum.hackaton.model.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public class AuthorizationService {
         this.roleService = roleService;
         this.employeeService = employeeService;
     }
-
+    @Transactional
     public void updateEmployee(Long employeeId, Long roleId) {
         Employee employee = employeeService.findEmployeeById(employeeId);
         if(Objects.nonNull(employee)) {
