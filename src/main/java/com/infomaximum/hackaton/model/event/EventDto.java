@@ -8,6 +8,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class EventDto implements Serializable {
-    String name;
-    EventType type;
+    private String name;
+    private EventType type;
 }

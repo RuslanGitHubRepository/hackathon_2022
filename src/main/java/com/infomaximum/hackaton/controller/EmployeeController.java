@@ -3,7 +3,6 @@ package com.infomaximum.hackaton.controller;
 import com.infomaximum.hackaton.mapper.EmployeeMapper;
 import com.infomaximum.hackaton.model.employee.Employee;
 import com.infomaximum.hackaton.model.employee.EmployeeDto;
-import com.infomaximum.hackaton.model.event.EventDto;
 import com.infomaximum.hackaton.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class EmployeeController {
-    @Autowired
     private final EmployeeService employeeService;
-    @Autowired
     private final EmployeeMapper employeeMapper;
 
+    @Autowired
     public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper) {
         this.employeeService = employeeService;
         this.employeeMapper = employeeMapper;
@@ -25,7 +23,7 @@ public class EmployeeController {
 
     @PostMapping("/employees")
     ResponseEntity<Boolean> newEmployee(@RequestBody EmployeeDto newEmployee) {
-        boolean status = employeeService.createUser(employeeMapper.employeeDtoToEmployee(newEmployee));
+        boolean status = employeeService.createEmployee(employeeMapper.employeeDtoToEmployee(newEmployee));
         return new ResponseEntity<>(
                 status,
                 HttpStatus.CREATED);

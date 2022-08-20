@@ -18,11 +18,10 @@ import java.util.ArrayList;
 
 @Controller
 public class EventController {
-    @Autowired
     private final EventService eventService;
-    @Autowired
     private final EventMapper eventMapper;
 
+    @Autowired
     public EventController(EventService employeeService, EventMapper eventMapper) {
         this.eventService = employeeService;
         this.eventMapper = eventMapper;

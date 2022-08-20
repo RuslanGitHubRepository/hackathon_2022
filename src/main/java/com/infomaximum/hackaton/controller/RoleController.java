@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class RoleController {
-    @Autowired
     private final RoleService roleService;
-    @Autowired
     private final RoleMapper roleMapper;
 
+    @Autowired
     public RoleController(RoleService roleService, RoleMapper roleMapper) {
         this.roleService = roleService;
         this.roleMapper = roleMapper;

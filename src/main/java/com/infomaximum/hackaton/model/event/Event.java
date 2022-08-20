@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
     @Column(name = "event_name")
     String name;
     @Column(name = "event_type")
