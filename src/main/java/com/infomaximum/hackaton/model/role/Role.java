@@ -18,7 +18,7 @@ public class Role {
     Long id;
 
     @Column(name = "type", nullable = false)
-    private RoleEnum role;
+    private RoleEnum type;
 
     @OneToMany(mappedBy="role")
     private Set<Employee> items;

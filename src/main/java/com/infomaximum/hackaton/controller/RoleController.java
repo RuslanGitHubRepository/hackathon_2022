@@ -1,8 +1,10 @@
 package com.infomaximum.hackaton.controller;
 
 import com.infomaximum.hackaton.mapper.RoleMapper;
+import com.infomaximum.hackaton.model.employee.Employee;
 import com.infomaximum.hackaton.model.role.Role;
 import com.infomaximum.hackaton.model.role.RoleDto;
+import com.infomaximum.hackaton.service.EmployeeService;
 import com.infomaximum.hackaton.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class RoleController {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
+    private final EmployeeService employeeService;
 
     @Autowired
-    public RoleController(RoleService roleService, RoleMapper roleMapper) {
+    public RoleController(RoleService roleService, RoleMapper roleMapper, EmployeeService employeeService) {
         this.roleService = roleService;
         this.roleMapper = roleMapper;
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/role/{id}")
@@ -43,5 +47,17 @@ public class RoleController {
                 status,
                 HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/role/employee/{id}")
+    ResponseEntity<RoleDto> getRoleByEmployeeId(@PathVariable(name = "id") Long employeeId) {
+        Employee employee = employeeService.findEmployeeById(employeeId);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        }
+
+        return new ResponseEntity<>(
+                roleMapper.roleToRoleDto(employee.getRole()),
+                HttpStatus.OK);
     }
 }

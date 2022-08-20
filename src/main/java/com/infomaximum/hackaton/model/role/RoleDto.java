@@ -8,5 +8,5 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class RoleDto implements Serializable {
-    private RoleEnum role;
+    private RoleEnum type;
 }
