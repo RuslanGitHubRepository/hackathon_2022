@@ -13,7 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class EventDto implements Serializable {
     String name;
-    EventType eventType;
+    EventType type;
 }
