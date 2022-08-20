@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class RoleController {
     @Autowired
     private final RoleService roleService;
+    @Autowired
     private final RoleMapper roleMapper;
 
     public RoleController(RoleService roleService, RoleMapper roleMapper) {
