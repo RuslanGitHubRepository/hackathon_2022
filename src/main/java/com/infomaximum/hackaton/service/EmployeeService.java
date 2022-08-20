@@ -18,6 +18,10 @@ public class EmployeeService {
         return employeeRepository.findEmployeeById(id);
     }
 
+    public Employee findEmployeeByLoginAndPassword(String login, String password) {
+        return employeeRepository.findEmployeeByLoginAndPassword(login, password);
+    }
+
     public boolean createUser(Employee employee) {
         Employee empl = employeeRepository.save(employee);
         return empl.getId() == employee.getId();
