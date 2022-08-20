@@ -6,20 +6,24 @@ import com.infomaximum.hackaton.model.employee.EmployeeDto;
 import com.infomaximum.hackaton.model.role.RoleDto;
 import com.infomaximum.hackaton.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class EmployeeController {
     private final EmployeeService employeeService;
     private final EmployeeMapper employeeMapper;
+    private final HttpHeaders httpHeaders;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper) {
+    public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper, HttpHeaders httpHeaders) {
         this.employeeService = employeeService;
         this.employeeMapper = employeeMapper;
+        this.httpHeaders = httpHeaders;
     }
 
     @PostMapping("/employees")
@@ -27,6 +31,7 @@ public class EmployeeController {
         boolean status = employeeService.createEmployee(employeeMapper.employeeDtoToEmployee(newEmployee));
         return new ResponseEntity<>(
                 status,
+                httpHeaders,
                 HttpStatus.CREATED);
     }
 
@@ -38,7 +43,8 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(
                 employeeMapper.employeeToEmployeeDto(employee),
-                HttpStatus.FOUND);
+                httpHeaders,
+                HttpStatus.OK);
     }
 
     @GetMapping("/employees/check")
@@ -47,8 +53,11 @@ public class EmployeeController {
         if (employee == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<>(
                 employeeMapper.employeeToEmployeeDto(employee),
-                HttpStatus.FOUND);
+                httpHeaders,
+                HttpStatus.OK);
     }
 }

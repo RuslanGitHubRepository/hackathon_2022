@@ -7,6 +7,7 @@ import com.infomaximum.hackaton.model.role.RoleDto;
 import com.infomaximum.hackaton.service.EmployeeService;
 import com.infomaximum.hackaton.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,14 @@ public class RoleController {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
     private final EmployeeService employeeService;
+    private final HttpHeaders httpHeaders;
 
     @Autowired
-    public RoleController(RoleService roleService, RoleMapper roleMapper, EmployeeService employeeService) {
+    public RoleController(RoleService roleService, RoleMapper roleMapper, EmployeeService employeeService, HttpHeaders httpHeaders) {
         this.roleService = roleService;
         this.roleMapper = roleMapper;
         this.employeeService = employeeService;
+        this.httpHeaders = httpHeaders;
     }
 
     @GetMapping("/role/{id}")
@@ -36,7 +39,8 @@ public class RoleController {
         }
         return new ResponseEntity<>(
                 roleMapper.roleToRoleDto(roleById),
-                HttpStatus.FOUND
+                httpHeaders,
+                HttpStatus.OK
         );
     }
 
@@ -45,6 +49,7 @@ public class RoleController {
         boolean status = roleService.createRole(roleMapper.roleDtoToRole(newRole));
         return new ResponseEntity<>(
                 status,
+                httpHeaders,
                 HttpStatus.CREATED
         );
     }
@@ -53,11 +58,12 @@ public class RoleController {
     ResponseEntity<RoleDto> getRoleByEmployeeId(@PathVariable(name = "id") Long employeeId) {
         Employee employee = employeeService.findEmployeeById(employeeId);
         if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>(httpHeaders, HttpStatus.I_AM_A_TEAPOT);
         }
 
         return new ResponseEntity<>(
                 roleMapper.roleToRoleDto(employee.getRole()),
+                httpHeaders,
                 HttpStatus.OK);
     }
 }

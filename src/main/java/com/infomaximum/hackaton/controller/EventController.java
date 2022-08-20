@@ -5,6 +5,7 @@ import com.infomaximum.hackaton.model.event.Event;
 import com.infomaximum.hackaton.model.event.EventDto;
 import com.infomaximum.hackaton.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,13 @@ import java.util.ArrayList;
 public class EventController {
     private final EventService eventService;
     private final EventMapper eventMapper;
+    private final HttpHeaders httpHeaders;
 
     @Autowired
-    public EventController(EventService employeeService, EventMapper eventMapper) {
+    public EventController(EventService employeeService, EventMapper eventMapper, HttpHeaders httpHeaders) {
         this.eventService = employeeService;
         this.eventMapper = eventMapper;
+        this.httpHeaders = httpHeaders;
     }
 
     @PostMapping("/events")
@@ -32,6 +35,7 @@ public class EventController {
         boolean status = eventService.createEvent(eventMapper.eventDtoToEvent(newEventDto));
         return new ResponseEntity<>(
                 status,
+                httpHeaders,
                 HttpStatus.CREATED);
     }
 
@@ -40,7 +44,8 @@ public class EventController {
         Event event = eventService.findEventById(eventsId);
         return new ResponseEntity<>(
                 eventMapper.eventToEventDto(event),
-                HttpStatus.FOUND);
+                httpHeaders,
+                HttpStatus.OK);
     }
 
     @GetMapping("/events/all")
@@ -48,12 +53,13 @@ public class EventController {
         ArrayList<Event> event = eventService.findAllEvent();
         return new ResponseEntity<>(
                 eventMapper.eventListToEventDtoList(event),
-                HttpStatus.FOUND);
+                httpHeaders,
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/events/{id}")
     ResponseEntity<Object> deleteEvent(@PathVariable(name = "id") Long eventId) {
         eventService.deleteEvent(eventId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
     }
 }
