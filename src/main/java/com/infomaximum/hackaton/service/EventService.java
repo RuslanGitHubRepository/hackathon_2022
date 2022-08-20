@@ -1,16 +1,12 @@
 package com.infomaximum.hackaton.service;
 
-import com.infomaximum.hackaton.model.employee.Employee;
 import com.infomaximum.hackaton.model.event.Event;
 import com.infomaximum.hackaton.model.event.EventType;
-import com.infomaximum.hackaton.repository.EmployeeRepository;
 import com.infomaximum.hackaton.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
