@@ -1,12 +1,8 @@
 package com.infomaximum.hackaton.controller;
 
-import com.infomaximum.hackaton.mapper.EmployeeMapper;
 import com.infomaximum.hackaton.mapper.EventMapper;
-import com.infomaximum.hackaton.model.employee.Employee;
-import com.infomaximum.hackaton.model.employee.EmployeeDto;
 import com.infomaximum.hackaton.model.event.Event;
 import com.infomaximum.hackaton.model.event.EventDto;
-import com.infomaximum.hackaton.service.EmployeeService;
 import com.infomaximum.hackaton.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class EventController {
