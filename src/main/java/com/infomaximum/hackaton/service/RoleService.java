@@ -5,6 +5,8 @@ import com.infomaximum.hackaton.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class RoleService {
 
@@ -21,6 +23,6 @@ public class RoleService {
 
     public boolean createRole(Role role) {
         Role saveRole = roleRepository.save(role);
-        return saveRole.getId() == saveRole.getId();
+        return Objects.equals(saveRole.getId(), role.getId());
     }
 }
