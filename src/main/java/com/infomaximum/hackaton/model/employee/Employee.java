@@ -31,7 +31,7 @@ public class Employee {
     private String login;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "birth_day", nullable = false)
+    @Column(name = "birth_day")
     private LocalDate birthday;
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="role_id")
