@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class EmployeeController {
@@ -37,6 +34,20 @@ public class EmployeeController {
     @GetMapping("/employees/{id}")
     ResponseEntity<EmployeeDto> getEmployee(@PathVariable(name = "id") Long employeeId) {
         Employee employee = employeeService.findEmployeeById(employeeId);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(
+                employeeMapper.employeeToEmployeeDto(employee),
+                HttpStatus.FOUND);
+    }
+
+    @GetMapping("/employees/{login}/{password}")
+    ResponseEntity<EmployeeDto> getEmployee(@PathVariable(name = "login") String login, @PathVariable(name = "password") String password) {
+        Employee employee = employeeService.findEmployeeByLoginAndPassword(login, password);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         return new ResponseEntity<>(
                 employeeMapper.employeeToEmployeeDto(employee),
                 HttpStatus.FOUND);
