@@ -55,8 +55,6 @@ public class EmployeeController {
         if (employee == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<>(
                 employeeMapper.employeeToEmployeeDto(employee),
                 httpHeaders,
@@ -64,7 +62,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/calendar-event/{id}")
-    ResponseEntity<List<EmployeeDto>> getEmployeeByCalendarEvent(@PathVariable Long calendarEventId) {
+    ResponseEntity<List<EmployeeDto>> getEmployeeByCalendarEvent(@PathVariable(name = "id") Long calendarEventId) {
         List<Employee> employees = employeeService.findEmployeeByCalendarEventId(calendarEventId);
         return new ResponseEntity<>(
                 employeeMapper.listEmployeeToListEmployeeDto(employees),
