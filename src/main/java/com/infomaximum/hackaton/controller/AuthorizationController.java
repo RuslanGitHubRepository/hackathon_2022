@@ -8,18 +8,18 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@CrossOrigin
 public class AuthorizationController {
     private AuthorizationService authorizationService;
-    private HttpHeaders httpHeaders;
 
     @Autowired
     public AuthorizationController(AuthorizationService authorizationService, HttpHeaders httpHeaders) {
         this.authorizationService = authorizationService;
-        this.httpHeaders = httpHeaders;
     }
 
     @PutMapping("/employees/role")
@@ -28,8 +28,8 @@ public class AuthorizationController {
         long roleId = Long.valueOf(StringUtils.defaultString(role_id, "0"));
         if(employeeId != 0 && roleId != 0) {
             authorizationService.updateEmployee(employeeId, roleId);
-            return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

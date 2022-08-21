@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,16 +27,15 @@ import java.util.Calendar;
 import java.util.List;
 
 @Controller
+@CrossOrigin
 public class CalendarEventController {
     private final CalendarEventService calendarEventService;
     private final CalendarEventMapper calendarEventMapper;
-    private final HttpHeaders httpHeaders;
 
     @Autowired
     public CalendarEventController(CalendarEventService calendarEventService, CalendarEventMapper calendarEventMapper, HttpHeaders httpHeaders) {
         this.calendarEventService = calendarEventService;
         this.calendarEventMapper = calendarEventMapper;
-        this.httpHeaders = httpHeaders;
     }
 
     @PostMapping("/calendar-events")
@@ -43,7 +43,6 @@ public class CalendarEventController {
         boolean status = calendarEventService.createCalendarEvent(calendarEventMapper.calendarEventDtoToCalendarEvent(newCalendarEventDto));
         return new ResponseEntity<>(
                 status,
-                httpHeaders,
                 HttpStatus.CREATED);
     }
 
@@ -52,7 +51,6 @@ public class CalendarEventController {
         CalendarEvent calendarEvent = calendarEventService.findCalendarEventById(calendarEventsId);
         return new ResponseEntity<>(
                 calendarEventMapper.calendarEventToCalendarEventDto(calendarEvent),
-                httpHeaders,
                 HttpStatus.OK);
     }
 
@@ -61,19 +59,18 @@ public class CalendarEventController {
         ArrayList<CalendarEvent> event = calendarEventService.findAllCalendarEvent();
         return new ResponseEntity<>(
                 calendarEventMapper.eventListToEventDtoList(event),
-                httpHeaders,
                 HttpStatus.OK);
     }
 
     @DeleteMapping("/calendar-events/{id}")
     ResponseEntity<Object> deleteCalendarEvent(@PathVariable(name = "id") Long calendarEventId) {
         calendarEventService.deleteCalendarEvent(calendarEventId);
-        return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/calendar-events/")
     ResponseEntity<Object> addEmployeeToCalendarEvent(@RequestParam(name = "ce_id") Long calendarEventId, @RequestParam(name = "emp_id") Long employeeId) {
         boolean status = calendarEventService.addEmployeeToCalendarEvent(calendarEventId, employeeId);
-        return new ResponseEntity<>(status, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(status, HttpStatus.OK);
     }
 }

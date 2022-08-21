@@ -18,18 +18,17 @@ import java.util.ArrayList;
 import java.util.Set;
 
 @Controller
+@CrossOrigin
 public class CommentController {
     private final CommentService commentService;
     private final CommentMapper commentMapper;
     private final CalendarEventService calendarEventService;
-    private final HttpHeaders httpHeaders;
 
     @Autowired
     public CommentController(CommentService commentService, CommentMapper commentMapper, CalendarEventService calendarEventService, HttpHeaders httpHeaders) {
         this.commentService = commentService;
         this.commentMapper = commentMapper;
         this.calendarEventService = calendarEventService;
-        this.httpHeaders = httpHeaders;
     }
 
     @PostMapping("/comment/")
@@ -37,7 +36,6 @@ public class CommentController {
         boolean status = commentService.createComment(commentMapper.commentDtoToComment(commentDto));
         return new ResponseEntity<>(
                 status,
-                httpHeaders,
                 HttpStatus.CREATED);
     }
 
@@ -46,7 +44,6 @@ public class CommentController {
         Comment commentById = commentService.findCommentById(commentId);
         return new ResponseEntity<>(
                 commentMapper.commentToCommentDto(commentById),
-                httpHeaders,
                 HttpStatus.OK
         );
     }
@@ -55,11 +52,10 @@ public class CommentController {
     ResponseEntity<Set<CommentDto>> getAllCommentsByCalendarEventsId(@PathVariable(name = "id") Long calendarEventsId) {
         CalendarEvent calendarEventById = calendarEventService.findCalendarEventById(calendarEventsId);
         if (calendarEventById == null) {
-            return new ResponseEntity<>(httpHeaders, HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         }
         return new ResponseEntity<>(
                 commentMapper.commentSetToCommentDtoSet(calendarEventById.getComments()),
-                httpHeaders,
                 HttpStatus.OK
         );
     }
@@ -69,7 +65,6 @@ public class CommentController {
         ArrayList<Comment> allComment = commentService.findAllComment();
         return new ResponseEntity<>(
                 commentMapper.commentListToCommentDtoList(allComment),
-                httpHeaders,
                 HttpStatus.OK
         );
     }
@@ -80,14 +75,14 @@ public class CommentController {
         long comment_Id = Long.valueOf(StringUtils.defaultString(commentId, "0"));
         if (calendarEvent_Id != 0 && comment_Id != 0) {
             commentService.updateComment(comment_Id, calendarEvent_Id);
-            return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/comment/{id}")
     ResponseEntity<Object> deleteComment(@PathVariable(name = "id") Long commentId) {
         commentService.deleteComment(commentId);
-        return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

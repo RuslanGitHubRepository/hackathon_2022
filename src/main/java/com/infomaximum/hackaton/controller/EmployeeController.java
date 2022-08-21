@@ -16,16 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@CrossOrigin
 public class EmployeeController {
     private final EmployeeService employeeService;
     private final EmployeeMapper employeeMapper;
-    private final HttpHeaders httpHeaders;
 
     @Autowired
     public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper, HttpHeaders httpHeaders) {
         this.employeeService = employeeService;
         this.employeeMapper = employeeMapper;
-        this.httpHeaders = httpHeaders;
     }
 
     @PostMapping("/employees")
@@ -33,7 +32,6 @@ public class EmployeeController {
         boolean status = employeeService.createEmployee(employeeMapper.employeeDtoToEmployee(newEmployee));
         return new ResponseEntity<>(
                 status,
-                httpHeaders,
                 HttpStatus.CREATED);
     }
 
@@ -45,7 +43,6 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(
                 employeeMapper.employeeToEmployeeDto(employee),
-                httpHeaders,
                 HttpStatus.OK);
     }
 
@@ -57,7 +54,6 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(
                 employeeMapper.employeeToEmployeeDto(employee),
-                httpHeaders,
                 HttpStatus.OK);
     }
 
@@ -66,9 +62,6 @@ public class EmployeeController {
         List<Employee> employees = employeeService.findEmployeeByCalendarEventId(calendarEventId);
         return new ResponseEntity<>(
                 employeeMapper.listEmployeeToListEmployeeDto(employees),
-                httpHeaders,
                 HttpStatus.OK);
     }
-
-
 }

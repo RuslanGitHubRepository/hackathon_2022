@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,16 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.ArrayList;
 
 @Controller
+@CrossOrigin
 public class EventController {
     private final EventService eventService;
     private final EventMapper eventMapper;
-    private final HttpHeaders httpHeaders;
 
     @Autowired
     public EventController(EventService employeeService, EventMapper eventMapper, HttpHeaders httpHeaders) {
         this.eventService = employeeService;
         this.eventMapper = eventMapper;
-        this.httpHeaders = httpHeaders;
     }
 
     @PostMapping("/events")
@@ -35,7 +35,6 @@ public class EventController {
         boolean status = eventService.createEvent(eventMapper.eventDtoToEvent(newEventDto));
         return new ResponseEntity<>(
                 status,
-                httpHeaders,
                 HttpStatus.CREATED);
     }
 
@@ -44,7 +43,6 @@ public class EventController {
         Event event = eventService.findEventById(eventsId);
         return new ResponseEntity<>(
                 eventMapper.eventToEventDto(event),
-                httpHeaders,
                 HttpStatus.OK);
     }
 
@@ -53,13 +51,12 @@ public class EventController {
         ArrayList<Event> event = eventService.findAllEvent();
         return new ResponseEntity<>(
                 eventMapper.eventListToEventDtoList(event),
-                httpHeaders,
                 HttpStatus.OK);
     }
 
     @DeleteMapping("/events/{id}")
     ResponseEntity<Object> deleteEvent(@PathVariable(name = "id") Long eventId) {
         eventService.deleteEvent(eventId);
-        return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

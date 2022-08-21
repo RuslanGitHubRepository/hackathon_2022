@@ -11,24 +11,24 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
+@CrossOrigin
 public class RoleController {
     private final RoleService roleService;
     private final RoleMapper roleMapper;
     private final EmployeeService employeeService;
-    private final HttpHeaders httpHeaders;
 
     @Autowired
     public RoleController(RoleService roleService, RoleMapper roleMapper, EmployeeService employeeService, HttpHeaders httpHeaders) {
         this.roleService = roleService;
         this.roleMapper = roleMapper;
         this.employeeService = employeeService;
-        this.httpHeaders = httpHeaders;
     }
 
     @GetMapping("/role/{id}")
@@ -39,7 +39,6 @@ public class RoleController {
         }
         return new ResponseEntity<>(
                 roleMapper.roleToRoleDto(roleById),
-                httpHeaders,
                 HttpStatus.OK
         );
     }
@@ -49,7 +48,6 @@ public class RoleController {
         boolean status = roleService.createRole(roleMapper.roleDtoToRole(newRole));
         return new ResponseEntity<>(
                 status,
-                httpHeaders,
                 HttpStatus.CREATED
         );
     }
@@ -58,12 +56,11 @@ public class RoleController {
     ResponseEntity<RoleDto> getRoleByEmployeeId(@PathVariable(name = "id") Long employeeId) {
         Employee employee = employeeService.findEmployeeById(employeeId);
         if (employee == null) {
-            return new ResponseEntity<>(httpHeaders, HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         }
 
         return new ResponseEntity<>(
                 roleMapper.roleToRoleDto(employee.getRole()),
-                httpHeaders,
                 HttpStatus.OK);
     }
 }
