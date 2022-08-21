@@ -10,6 +10,7 @@ import com.infomaximum.hackaton.repository.EventRepository;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +46,7 @@ public class CalendarEventService {
         return Objects.equals(save.getId(), calendarEvent.getId());
     }
 
+    @Transactional
     public boolean addEmployeeToCalendarEvent(Long calendarEventId, Long employeeId) {
         Optional<Employee> employeeOpt = employeeRepository.findById(employeeId);
         Optional<CalendarEvent> calendarEventOpt = calendarEventRepository.findById(calendarEventId);

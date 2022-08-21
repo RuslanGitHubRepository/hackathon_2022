@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = EmployeeMapper.class)
 public interface CalendarEventMapper {
     CalendarEvent calendarEventDtoToCalendarEvent(CalendarEventDto calendarEventDto);
     CalendarEventDto calendarEventToCalendarEventDto(CalendarEvent calendarEvent);

@@ -5,6 +5,7 @@ import com.infomaximum.hackaton.model.role.Role;
 import com.infomaximum.hackaton.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class EmployeeService {
         return Objects.equals(empl.getId(), employee.getId());
     }
 
+    @Transactional
     public void updateEmployeeRole(Employee employee, Role role) {
         employeeRepository.updateEmployeeRole(role, employee.getId());
     }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,6 +42,6 @@ public class Employee {
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="role_id")
     private Role role;
-    @ManyToMany(mappedBy = "employees")
+    @ManyToMany(mappedBy = "employees", fetch = FetchType.LAZY)
     Set<CalendarEvent> calendarEvents;
 }

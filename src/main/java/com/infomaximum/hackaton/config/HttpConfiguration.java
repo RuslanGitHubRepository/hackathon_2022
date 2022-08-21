@@ -10,6 +10,7 @@ public class HttpConfiguration {
     public HttpHeaders httpHeaders(){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Access-Control-Allow-Origin", "*");
+        httpHeaders.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         return httpHeaders;
     }
 }

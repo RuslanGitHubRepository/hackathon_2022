@@ -38,7 +38,7 @@ public class CalendarEvent {
     private Short minNumber;
     @OneToMany(mappedBy="calendarEvent")
     private Set<Comment> comments;
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "calendar_event_employee",
             joinColumns = @JoinColumn(name = "ce_id"),
