@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -31,7 +32,7 @@ public class CommentService {
 
     public ArrayList<Comment> findAllComment() {
         Iterable<Comment> all = commentRepository.findAll();
-        return StreamSupport.stream(all.spliterator(), false)
+        return StreamSupport.stream(all.spliterator(), false).sorted(Comparator.comparing(Comment::getDateTime))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

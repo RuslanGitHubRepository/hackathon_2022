@@ -16,7 +16,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @CrossOrigin
@@ -55,13 +58,16 @@ public class CommentController {
     }
 
     @GetMapping("/comment/calendar-events/{id}")
-    ResponseEntity<Set<CommentDto>> getAllCommentsByCalendarEventsId(@PathVariable(name = "id") Long calendarEventsId) {
+    ResponseEntity<List<CommentDto>> getAllCommentsByCalendarEventsId(@PathVariable(name = "id") Long calendarEventsId) {
         CalendarEvent calendarEventById = calendarEventService.findCalendarEventById(calendarEventsId);
         if (calendarEventById == null) {
             return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         }
+        ArrayList<Comment> commentsList = calendarEventById.getComments().stream()
+                .sorted(Comparator.comparing(Comment::getDateTime))
+                .collect(Collectors.toCollection(ArrayList::new));
         return new ResponseEntity<>(
-                commentMapper.commentSetToCommentDtoSet(calendarEventById.getComments()),
+                commentMapper.commentListToCommentDtoList(commentsList),
                 HttpStatus.OK
         );
     }
