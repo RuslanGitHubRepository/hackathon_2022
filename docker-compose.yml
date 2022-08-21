@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: app
+    ports:
+      - "8080:8080"
+    command: --init-file /data/application/init.sql
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/hackaton
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=hackaton-root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+    links:
+      - db
+
+  db:
+    image: 'mariadb:latest'
+    container_name: db
+    command: --init-file /data/application/init.sql
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./init.sql:/data/application/init.sql
+    environment:
+      - MARIADB_USER=hackaton
+      - MARIADB_PASSWORD=hackaton
+      - MARIADB_ROOT_PASSWORD=hackaton-root
