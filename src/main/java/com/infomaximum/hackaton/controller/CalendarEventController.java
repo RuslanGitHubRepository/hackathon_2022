@@ -73,4 +73,10 @@ public class CalendarEventController {
         boolean status = calendarEventService.addEmployeeToCalendarEvent(calendarEventId, employeeId);
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
+
+    @DeleteMapping("/calendar-events/")
+    ResponseEntity<Object> removeEmployeeToCalendarEvent(@RequestParam(name = "ce_id") Long calendarEventId, @RequestParam(name = "emp_id") Long employeeId) {
+        boolean status = calendarEventService.removeEmployeeToCalendarEvent(calendarEventId, employeeId);
+        return new ResponseEntity<>(status, HttpStatus.OK);
+    }
 }

@@ -62,6 +62,22 @@ public class CalendarEventService {
         return Boolean.TRUE;
     }
 
+    @Transactional
+    public boolean removeEmployeeToCalendarEvent(Long calendarEventId, Long employeeId) {
+        Optional<Employee> employeeOpt = employeeRepository.findById(employeeId);
+        Optional<CalendarEvent> calendarEventOpt = calendarEventRepository.findById(calendarEventId);
+        if(!employeeOpt.isPresent() || !calendarEventOpt.isPresent()) {
+            return Boolean.FALSE;
+        }
+        CalendarEvent calendarEvent = calendarEventOpt.get();
+        Employee employee = employeeOpt.get();
+        Set<Employee> employees = calendarEvent.getEmployees();
+        employees.remove(employee);
+        calendarEvent.setEmployees(employees);
+        calendarEventRepository.save(calendarEvent);
+        return Boolean.TRUE;
+    }
+
     public void deleteCalendarEvent(Long calendarEventId){
         calendarEventRepository.deleteById(calendarEventId);
     }

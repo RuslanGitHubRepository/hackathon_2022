@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ import java.util.Set;
 @Table(name = "calendar_event")
 @Getter
 @Setter
-public class CalendarEvent {
+public class CalendarEvent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ce_id")
