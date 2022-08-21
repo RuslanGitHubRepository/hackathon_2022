@@ -1,8 +1,12 @@
 package com.infomaximum.hackaton.model.calendarevent;
 
-import javax.persistence.Column;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class CalendarEventDto {
     private Long id;
     private String name;
