@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,5 +69,11 @@ public class CalendarEventController {
     ResponseEntity<Object> deleteCalendarEvent(@PathVariable(name = "id") Long calendarEventId) {
         calendarEventService.deleteCalendarEvent(calendarEventId);
         return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+    }
+
+    @PutMapping("/calendar-events/")
+    ResponseEntity<Object> addEmployeeToCalendarEvent(@RequestParam(name = "ce_id") Long calendarEventId, @RequestParam(name = "emp_id") Long employeeId) {
+        boolean status = calendarEventService.addEmployeeToCalendarEvent(calendarEventId, employeeId);
+        return new ResponseEntity<>(status, httpHeaders, HttpStatus.OK);
     }
 }

@@ -6,6 +6,8 @@ import com.infomaximum.hackaton.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -32,5 +34,9 @@ public class EmployeeService {
 
     public void updateEmployeeRole(Employee employee, Role role) {
         employeeRepository.updateEmployeeRole(role, employee.getId());
+    }
+
+    public List<Employee> findEmployeeByCalendarEventId(Long id){
+        return new ArrayList<>(employeeRepository.findEmployeeByCalendarEventsId(id));
     }
 }

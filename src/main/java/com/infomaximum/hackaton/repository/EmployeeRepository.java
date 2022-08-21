@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     Employee findEmployeeById(Long id);
@@ -16,4 +18,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     @Modifying
     @Query(value = "UPDATE employee SET role_id = ?1 WHERE id = ?2", nativeQuery = true)
     void updateEmployeeRole(Role role, Long employeeId);
+
+    List<Employee> findEmployeeByCalendarEventsId(Long calendarEventsId);
 }

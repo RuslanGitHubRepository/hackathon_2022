@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class EmployeeController {
     private final EmployeeService employeeService;
@@ -60,4 +62,15 @@ public class EmployeeController {
                 httpHeaders,
                 HttpStatus.OK);
     }
+
+    @GetMapping("/employees/calendar-event/{id}")
+    ResponseEntity<List<EmployeeDto>> getEmployeeByCalendarEvent(@PathVariable Long calendarEventId) {
+        List<Employee> employees = employeeService.findEmployeeByCalendarEventId(calendarEventId);
+        return new ResponseEntity<>(
+                employeeMapper.listEmployeeToListEmployeeDto(employees),
+                httpHeaders,
+                HttpStatus.OK);
+    }
+
+
 }
