@@ -35,9 +35,12 @@ public class CommentService {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public boolean createComment(Comment comment) {
+    public Comment createComment(Comment comment) {
         Comment save = commentRepository.save(comment);
-        return Objects.equals(save.getId(), comment.getId());
+        if (Objects.equals(save.getId(), comment.getId())) {
+            return save;
+        }
+        return null;
     }
 
     @Transactional

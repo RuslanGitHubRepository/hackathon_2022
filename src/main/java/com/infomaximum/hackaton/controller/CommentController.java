@@ -35,13 +35,13 @@ public class CommentController {
     }
 
     @PostMapping("/comment/{id}")
-    ResponseEntity<Boolean> newComment(@RequestBody CommentDto commentDto, @PathVariable(name = "id") Long employeeId) {
+    ResponseEntity<Long> newComment(@RequestBody CommentDto commentDto, @PathVariable(name = "id") Long employeeId) {
         Employee employee = employeeService.findEmployeeById(employeeId);
         String userName = employee.getUserName() + " " + employee.getSurName();
         commentDto.setUserName(userName);
-        boolean status = commentService.createComment(commentMapper.commentDtoToComment(commentDto));
+        Comment comment = commentService.createComment(commentMapper.commentDtoToComment(commentDto));
         return new ResponseEntity<>(
-                status,
+                comment.getId(),
                 HttpStatus.CREATED);
     }
 
