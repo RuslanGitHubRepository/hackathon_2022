@@ -2,6 +2,7 @@ package com.infomaximum.hackaton.model.calendarevent;
 
 import com.infomaximum.hackaton.model.employee.Employee;
 import com.infomaximum.hackaton.model.employee.EmployeeDto;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 public class CalendarEventDto implements Serializable {
     private Long id;
     private String name;

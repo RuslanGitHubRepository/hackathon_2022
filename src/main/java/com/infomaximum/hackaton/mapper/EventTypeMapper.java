@@ -5,7 +5,7 @@ import org.mapstruct.EnumMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface EventTypeMapper {
     EventType stringToEventType(String event);
 }
