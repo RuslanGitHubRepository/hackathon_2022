@@ -1,6 +1,7 @@
 package com.infomaximum.hackaton.model.calendarevent;
 
 import com.infomaximum.hackaton.model.employee.Employee;
+import com.infomaximum.hackaton.model.comment.Comment;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -34,6 +36,8 @@ public class CalendarEvent {
     private LocalDate date;
     @Column(name = "min_number")
     private Short minNumber;
+    @OneToMany(mappedBy="calendarEvent")
+    private Set<Comment> comments;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "calendar_event_employee",
