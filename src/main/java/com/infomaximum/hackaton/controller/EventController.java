@@ -25,7 +25,7 @@ public class EventController {
     private final EventMapper eventMapper;
 
     @Autowired
-    public EventController(EventService employeeService, EventMapper eventMapper, HttpHeaders httpHeaders) {
+    public EventController(EventService employeeService, EventMapper eventMapper) {
         this.eventService = employeeService;
         this.eventMapper = eventMapper;
     }

@@ -33,7 +33,7 @@ public class CalendarEventController {
     private final CalendarEventMapper calendarEventMapper;
 
     @Autowired
-    public CalendarEventController(CalendarEventService calendarEventService, CalendarEventMapper calendarEventMapper, HttpHeaders httpHeaders) {
+    public CalendarEventController(CalendarEventService calendarEventService, CalendarEventMapper calendarEventMapper) {
         this.calendarEventService = calendarEventService;
         this.calendarEventMapper = calendarEventMapper;
     }

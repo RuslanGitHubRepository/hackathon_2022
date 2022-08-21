@@ -22,7 +22,7 @@ public class EmployeeController {
     private final EmployeeMapper employeeMapper;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper, HttpHeaders httpHeaders) {
+    public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper) {
         this.employeeService = employeeService;
         this.employeeMapper = employeeMapper;
     }

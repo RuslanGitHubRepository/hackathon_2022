@@ -25,7 +25,7 @@ public class RoleController {
     private final EmployeeService employeeService;
 
     @Autowired
-    public RoleController(RoleService roleService, RoleMapper roleMapper, EmployeeService employeeService, HttpHeaders httpHeaders) {
+    public RoleController(RoleService roleService, RoleMapper roleMapper, EmployeeService employeeService) {
         this.roleService = roleService;
         this.roleMapper = roleMapper;
         this.employeeService = employeeService;

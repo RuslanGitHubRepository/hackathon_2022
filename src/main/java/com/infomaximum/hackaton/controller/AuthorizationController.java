@@ -18,7 +18,7 @@ public class AuthorizationController {
     private AuthorizationService authorizationService;
 
     @Autowired
-    public AuthorizationController(AuthorizationService authorizationService, HttpHeaders httpHeaders) {
+    public AuthorizationController(AuthorizationService authorizationService) {
         this.authorizationService = authorizationService;
     }
 
