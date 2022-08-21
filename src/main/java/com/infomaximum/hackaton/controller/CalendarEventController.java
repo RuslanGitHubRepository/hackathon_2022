@@ -1,15 +1,10 @@
 package com.infomaximum.hackaton.controller;
 
 import com.infomaximum.hackaton.mapper.CalendarEventMapper;
-import com.infomaximum.hackaton.mapper.EventMapper;
 import com.infomaximum.hackaton.model.calendarevent.CalendarEvent;
 import com.infomaximum.hackaton.model.calendarevent.CalendarEventDto;
-import com.infomaximum.hackaton.model.event.Event;
-import com.infomaximum.hackaton.model.event.EventDto;
 import com.infomaximum.hackaton.service.CalendarEventService;
-import com.infomaximum.hackaton.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 @Controller
 @CrossOrigin

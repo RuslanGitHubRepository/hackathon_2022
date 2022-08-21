@@ -2,7 +2,6 @@ package com.infomaximum.hackaton.repository;
 
 import com.infomaximum.hackaton.model.calendarevent.CalendarEvent;
 import com.infomaximum.hackaton.model.comment.Comment;
-import com.infomaximum.hackaton.model.role.Role;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -2,8 +2,6 @@ package com.infomaximum.hackaton.mapper;
 
 import com.infomaximum.hackaton.model.calendarevent.CalendarEvent;
 import com.infomaximum.hackaton.model.calendarevent.CalendarEventDto;
-import com.infomaximum.hackaton.model.role.Role;
-import com.infomaximum.hackaton.model.role.RoleDto;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;

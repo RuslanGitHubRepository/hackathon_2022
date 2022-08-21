@@ -1,6 +1,5 @@
 package com.infomaximum.hackaton.model.comment;
 
-import com.infomaximum.hackaton.model.calendarevent.CalendarEvent;
 import lombok.Getter;
 import lombok.Setter;
 

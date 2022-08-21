@@ -2,18 +2,13 @@ package com.infomaximum.hackaton.service;
 
 import com.infomaximum.hackaton.model.calendarevent.CalendarEvent;
 import com.infomaximum.hackaton.model.employee.Employee;
-import com.infomaximum.hackaton.model.event.Event;
-import com.infomaximum.hackaton.model.event.EventType;
 import com.infomaximum.hackaton.repository.CalendarEventRepository;
 import com.infomaximum.hackaton.repository.EmployeeRepository;
-import com.infomaximum.hackaton.repository.EventRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
